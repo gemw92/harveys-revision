@@ -1,4 +1,5 @@
- import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 // ── COLOUR HELPERS ──────────────────────────────────────────────────────────
 const COLS = {
@@ -1199,6 +1200,7 @@ function LearnCard({ item, subId, unitId, idx, col, done, onDone }) {
 
 // ── MAIN APP ────────────────────────────────────────────────────────────────
 export default function App() {
+const navigate = useNavigate();
  const [stats, setStats] = useState(() => {
   try {
     const saved = localStorage.getItem('harvey-stats');
@@ -1465,7 +1467,8 @@ export default function App() {
     })}
    </div>
    <button onClick={()=>go("badges")} style={{width:"100%",padding:"10px",fontSize:13,borderRadius:"var(--border-radius-md)",border:"0.5px solid var(--color-border-secondary)",background:"var(--color-background-primary)",cursor:"pointer"}}>🏅 View badges ({stats.earnedBadges.length}/{BADGES.length})</button>
-<a href="/re" style={{display:"block",width:"100%",padding:"10px",fontSize:13,borderRadius:"var(--border-radius-md)",border:"0.5px solid #534AB7",background:"#EEEDFE",color:"#26215C",cursor:"pointer",textAlign:"center",textDecoration:"none",marginTop:8}}>✝️ RE Revision — The big questions</a>
+<button onClick={()=>navigate('/re')} style={{display:"block",width:"100%",padding:"10px",fontSize:13,borderRadius:"var(--border-radius-md)",border:"0.5px solid #534AB7",background:"#EEEDFE",color:"#26215C",cursor:"pointer",textAlign:"center",marginTop:8}}>✝️ RE Revision — The big questions</button>
+<button onClick={()=>navigate('/exam')} style={{display:"block",width:"100%",padding:"10px",fontSize:13,borderRadius:"var(--border-radius-md)",border:"0.5px solid #1D9E75",background:"#E1F5EE",color:"#085041",cursor:"pointer",textAlign:"center",marginTop:8}}>📝 Mini Exam Mode — test yourself</button>
    {newBadges.length>0&&<div style={{marginTop:"1rem",padding:"12px",borderRadius:"var(--border-radius-md)",background:"#E1F5EE",border:"0.5px solid #1D9E75"}}>
     <p style={{margin:0,fontSize:14,color:"#085041",fontWeight:500}}>Badge unlocked: {newBadges.map(id=>BADGES.find(b=>b.id===id)?.label).join(", ")}!</p>
     <button onClick={()=>setNewBadges([])} style={{fontSize:12,color:"#1D9E75",background:"none",border:"none",padding:0,cursor:"pointer",marginTop:4}}>Dismiss</button>
